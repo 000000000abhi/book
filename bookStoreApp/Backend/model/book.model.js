@@ -12,6 +12,7 @@ const bookSchema = mongoose.Schema({
   printingDate: { type: Date, required: false }, // Printing date
   description: { type: String, required: false }, // Detailed description of the book
   author: { type: String, required: false },
+  subcategory: { type: String, required: false },
 });
 
 // Create the Book model using the updated schema
