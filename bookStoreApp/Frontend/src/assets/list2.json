@@ -1,0 +1,145 @@
+[
+    { 
+      "id": 1,
+      "author": "user_id1", 
+      "title": "Introduction to React", 
+      "content": "React is a JavaScript library for building user interfaces...", 
+      "tags": ["react", "frontend", "javascript"], 
+      "category": "Programming", 
+      "createdAt": "2025-01-10T12:00:00.000Z", 
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/aerial-view-computer-laptop-wooden-table-photography-hobby-concept_53876-24773.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    { 
+      "id": 2,
+      "author": "user_id2", 
+      "title": "Understanding MongoDB", 
+      "content": "MongoDB is a NoSQL database that allows you to store JSON-like documents...", 
+      "tags": ["mongodb", "database", "nosql"], 
+      "category": "Database", 
+      "createdAt": "2025-01-10T12:00:00.000Z", 
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/holiday-vacation-travelling-destination-tourism-concept_53876-121082.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    { 
+      "id": 3,
+      "author": "user_id1", 
+      "title": "JavaScript Basics", 
+      "content": "JavaScript is a dynamic programming language used for creating interactive websites...", 
+      "tags": ["javascript", "programming"], 
+      "category": "Programming", 
+      "createdAt": "2025-01-10T12:00:00.000Z", 
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/premium-vector/female-athlete-practicing-volleyball-sport-character-lettering-illustration-design_24908-67393.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    { 
+      "id": 4,
+      "author": "user_id3", 
+      "title": "Advanced CSS Techniques", 
+      "content": "In this post, we’ll dive deep into advanced CSS concepts like flexbox and grid...", 
+      "tags": ["css", "web design"], 
+      "category": "Web Development", 
+      "createdAt": "2025-01-10T12:00:00.000Z", 
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/aerial-view-computer-laptop-wooden-table-photography-hobby-concept_53876-24773.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 5,
+      "author": "user_id2",
+      "title": "Node.js and Express.js",
+      "content": "Node.js is a JavaScript runtime built on Chrome’s V8 engine...",
+      "tags": ["nodejs", "backend", "express"],
+      "category": "Backend",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/premium-vector/female-athlete-practicing-volleyball-sport-character-lettering-illustration-design_24908-67393.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 6,
+      "author": "user_id3",
+      "title": "Building APIs with Express.js",
+      "content": "In this tutorial, we will walk through creating a RESTful API using Express.js...",
+      "tags": ["api", "express", "nodejs"],
+      "category": "Backend",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/aerial-view-computer-laptop-wooden-table-photography-hobby-concept_53876-24773.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 7,
+      "author": "user_id2",
+      "title": "Mastering Python",
+      "content": "Python is an easy-to-learn, versatile programming language used in various fields...",
+      "tags": ["python", "programming"],
+      "category": "Programming",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/premium-vector/female-athlete-practicing-volleyball-sport-character-lettering-illustration-design_24908-67393.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 8,
+      "author": "user_id1",
+      "title": "HTML5 Features",
+      "content": "HTML5 introduced a variety of new features, such as new form inputs and multimedia...",
+      "tags": ["html", "web design"],
+      "category": "Web Development",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/aerial-view-computer-laptop-wooden-table-photography-hobby-concept_53876-24773.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 9,
+      "author": "user_id1",
+      "title": "Vue.js for Beginners",
+      "content": "Vue.js is a progressive framework for building user interfaces...",
+      "tags": ["vuejs", "frontend"],
+      "category": "Frontend",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/holiday-vacation-travelling-destination-tourism-concept_53876-121082.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 10,
+      "author": "user_id3",
+      "title": "Building a REST API",
+      "content": "This post will explain how to build a RESTful API using Node.js and Express...",
+      "tags": ["rest api", "nodejs", "express"],
+      "category": "Backend",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/premium-vector/female-athlete-practicing-volleyball-sport-character-lettering-illustration-design_24908-67393.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 11,
+      "author": "user_id2",
+      "title": "What is Docker?",
+      "content": "Docker allows you to package applications and their dependencies into containers...",
+      "tags": ["docker", "devops"],
+      "category": "DevOps",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/aerial-view-computer-laptop-wooden-table-photography-hobby-concept_53876-24773.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 12,
+      "author": "user_id1",
+      "title": "CSS Grid Layout",
+      "content": "CSS Grid is a powerful layout system in CSS that allows for two-dimensional layouts...",
+      "tags": ["css", "frontend"],
+      "category": "Web Development",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/aerial-view-computer-laptop-wooden-table-photography-hobby-concept_53876-24773.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    },
+    {
+      "id": 13,
+      "author": "user_id2",
+      "title": "SQL Basics",
+      "content": "SQL is a standard language for managing and manipulating databases...",
+      "tags": ["sql", "database"],
+      "category": "Database",
+      "createdAt": "2025-01-10T12:00:00.000Z",
+      "updatedAt": "2025-01-10T12:00:00.000Z",
+      "image": "https://img.freepik.com/free-photo/aerial-view-computer-laptop-wooden-table-photography-hobby-concept_53876-24773.jpg?ga=GA1.1.369964002.1736404008&semt=ais_hybrid"
+    }
+]
