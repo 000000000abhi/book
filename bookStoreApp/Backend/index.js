@@ -15,20 +15,28 @@ const PORT = process.env.PORT || 6000;
 const URI = process.env.MongoDBURI;
 
 if (!URI) {
-  console.error("MongoDB URI is missing in environment variables!");
+  console.error("❌ MongoDB URI is missing in environment variables!");
   process.exit(1);
 }
 
-// Middleware
-app.use(cors({ origin: "*" })); // Allow all origins (modify for security)
-app.use(express.json());
+// CORS Configuration
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://localhost:2345"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+  })
+);
 
-// MongoDB Connection
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 mongoose
   .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => console.log("✅ Connected to MongoDB"))
   .catch((error) => {
-    console.error("MongoDB connection error:", error);
+    console.error("❌ MongoDB connection error:", error);
     process.exit(1);
   });
 
@@ -38,12 +46,17 @@ app.use("/user", userRoute);
 app.use("/blog", blogRoute);
 app.use("/admin", adminRoute);
 
-// 404 Middleware (Handles Undefined Routes)
-app.use((req, res, next) => {
+// 404 Middleware
+app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-// Start Server
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error("❌ Error:", err.message);
+  res.status(500).json({ message: "Something went wrong!", error: err.message });
+});
+
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

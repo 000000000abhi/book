@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const adminSchema = new mongoose.Schema(
   {
@@ -37,7 +37,7 @@ adminSchema.pre("save", async function (next) {
 });
 
 // Compare passwords
-adminSchema.methods.comparePassword = async function (enteredPassword) {
+adminSchema.methods.comparePassword = function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   signup,
-  signupAdmin,
+  
   login,
   searchByEmail,
   updateUserCoins,

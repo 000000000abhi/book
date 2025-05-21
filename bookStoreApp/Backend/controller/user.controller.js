@@ -30,46 +30,6 @@ const signup = async (req, res) => {
   }
 };
 
-// Admin Signup
-const signupAdmin = async (req, res) => {
-  try {
-    const { fullname, email, password, adminKey } = req.body;
-
-    if (adminKey !== process.env.ADMIN_SECRET_KEY) {
-      return res.status(403).json({ message: "Invalid admin key" });
-    }
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "Admin already exists" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newAdmin = new User({
-      fullname,
-      email,
-      password: hashedPassword,
-      role: "admin",
-    });
-
-    await newAdmin.save();
-
-    res.status(201).json({
-      message: "Admin account created successfully",
-      user: {
-        _id: newAdmin._id,
-        fullname: newAdmin.fullname,
-        email: newAdmin.email,
-        role: newAdmin.role,
-      },
-    });
-  } catch (error) {
-    console.error("Error: ", error.message);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
 // Login function
 const login = async (req, res) => {
   try {
@@ -235,7 +195,7 @@ const getAllUsers = async (req, res) => {
 
 module.exports = {
   signup,
-  signupAdmin,
+  
   login,
   searchByEmail,
   updateUserCoins,

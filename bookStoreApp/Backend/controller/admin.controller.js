@@ -1,14 +1,8 @@
-const Admin = require("../model/admin.model");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
+const Admin = require("../model/admin.model");
 const Book = require("../model/book.model");
-const User = require("../model/user.model");
-const mongoose = require("mongoose");
-dotenv.config();
-
-// ✅ Admin Signup
-exports.signupAdmin = async (req, res) => {
+// ✅ Signup Admin
+const signupAdmin = async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
 
@@ -16,13 +10,21 @@ exports.signupAdmin = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
+    // Check if admin already exists
     const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
       return res.status(400).json({ message: "Admin already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newAdmin = new Admin({ fullname, email, password: hashedPassword });
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+
+    const newAdmin = new Admin({
+      fullname,
+      email,
+      password: hashedPassword,
+      isAdmin: true,
+    });
+
     await newAdmin.save();
 
     res.status(201).json({
@@ -35,34 +37,39 @@ exports.signupAdmin = async (req, res) => {
 };
 
 // ✅ Admin Login
-exports.adminLogin = async (req, res) => {
+const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
-    }
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const admin = await Admin.findOne({ email });
-    if (!admin) return res.status(400).json({ message: "Invalid email or password" });
+    console.log("admin is present",admin);
+    if (!admin) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
 
-    const isMatch = await bcrypt.compare(password, admin.password);
-    if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
+    // Trim the entered password to avoid comparison issues
+    const isMatch = await bcrypt.compare(password.trim(), admin.password);
 
-    const token = jwt.sign({ id: admin._id, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    console.log("Entered Password:", password);
+     console.log("hashed password:",hashedPassword);
+    console.log("Stored Hashed Password:", admin.password);
+    console.log("Password Match Result:", isMatch);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
 
     res.status(200).json({
-      message: "✅ Admin Login Successful",
-      admin: { _id: admin._id, fullname: admin.fullname, email: admin.email },
-      token,
+      message: "✅ Admin login successful",
+      admin: { _id: admin._id, fullname: admin.fullname, email: admin.email, role: "Admin" },
     });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
 // ✅ Get All Books
-exports.getAllBooks = async (req, res) => {
+const getAllBooks = async (req, res) => {
   try {
     const books = await Book.find();
     res.status(200).json(books);
@@ -71,26 +78,8 @@ exports.getAllBooks = async (req, res) => {
   }
 };
 
-// ✅ Get Book by ID
-exports.getBookById = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid book ID format" });
-    }
-
-    const book = await Book.findById(id);
-    if (!book) return res.status(404).json({ message: "Book not found" });
-
-    res.status(200).json(book);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
 // ✅ Get Book by ISBN
-exports.getBookByIsbn = async (req, res) => {
+const getBookByIsbn = async (req, res) => {
   try {
     const { isbn } = req.params;
 
@@ -107,28 +96,8 @@ exports.getBookByIsbn = async (req, res) => {
   }
 };
 
-// ✅ Search Books by Name
-exports.searchBooksByName = async (req, res) => {
-  try {
-    const books = await Book.find({ name: { $regex: req.params.name, $options: "i" } });
-    res.status(200).json(books);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-// ✅ Get All Users
-exports.getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
 // ✅ Get All Admins
-exports.getAllAdmins = async (req, res) => {
+const getAllAdmins = async (req, res) => {
   try {
     const admins = await Admin.find();
     res.status(200).json(admins);
@@ -138,7 +107,7 @@ exports.getAllAdmins = async (req, res) => {
 };
 
 // ✅ Add a Book
-exports.addBook = async (req, res) => {
+const addBook = async (req, res) => {
   try {
     const { name, title, image, author, introduction, category, price, isbn, publisher, description } = req.body;
 
@@ -161,7 +130,7 @@ exports.addBook = async (req, res) => {
 };
 
 // ✅ Update Book by ISBN
-exports.updateBookByIsbn = async (req, res) => {
+const updateBookByIsbn = async (req, res) => {
   try {
     const { isbn } = req.params;
     const updateData = req.body;
@@ -178,4 +147,14 @@ exports.updateBookByIsbn = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
+};
+
+module.exports = {
+  signupAdmin,
+  adminLogin,
+  getAllBooks,
+  getBookByIsbn,
+  getAllAdmins,
+  addBook,
+  updateBookByIsbn,
 };

@@ -18,29 +18,34 @@ function Signup() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const userInfo = {
+    let userInfo = {
       fullname: data.fullname,
       email: data.email,
       password: data.password,
       isAdmin: isAdminSignup,
-      adminKey: isAdminSignup ? data.adminKey : null,
     };
+
+    if (isAdminSignup) {
+      userInfo.adminKey = data.adminKey;
+    }
 
     try {
       const res = await axios.post(
         isAdminSignup ? "http://localhost:2345/admin/signup" : "http://localhost:2345/user/signup",
-        userInfo
+        userInfo,
+        { headers: { "Content-Type": "application/json" } }
       );
 
-      console.log(res.data);
       if (res.data) {
         toast.success(`Signup Successful as ${isAdminSignup ? "Admin" : "User"}`);
-        localStorage.setItem("Users", JSON.stringify(res.data.user));
+        localStorage.setItem(
+          isAdminSignup ? "AdminUser" : "Users",
+          JSON.stringify(res.data.user)
+        );
         navigate("/login", { replace: true });
       }
     } catch (err) {
       if (err.response) {
-        console.log(err);
         toast.error("Error: " + err.response.data.message);
       }
     }
@@ -52,17 +57,19 @@ function Signup() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md bg-white bg-opacity-10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl"
+        className="w-full max-w-md bg-white bg-opacity-10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl relative"
       >
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Close Button */}
-          <Link
-            to="/"
-            className="absolute right-4 top-4 text-white text-2xl cursor-pointer"
-          >
-            ✕
-          </Link>
+        {/* Close Button */}
+        <motion.div
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          className="absolute right-4 top-4 text-white text-2xl cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          ✕
+        </motion.div>
 
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Signup Header */}
           <motion.h3
             initial={{ y: -20, opacity: 0 }}
@@ -128,7 +135,7 @@ function Signup() {
                 type="password"
                 placeholder="Enter Admin Key"
                 className="w-full px-4 py-3 rounded-md bg-white bg-opacity-20 text-white placeholder-gray-300 focus:outline-none"
-                {...register("adminKey", { required: isAdminSignup ? "Admin Key is required" : false })}
+                {...register("adminKey", { required: "Admin Key is required" })}
               />
               {errors.adminKey && <span className="text-red-300">{errors.adminKey.message}</span>}
             </div>

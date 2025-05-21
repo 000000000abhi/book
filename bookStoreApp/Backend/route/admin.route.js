@@ -1,28 +1,22 @@
 const express = require("express");
 const {
-    signupAdmin,
-    adminLogin,
-    getAllBooks,
-    getBookByIsbn,
-    getAllAdmins,
-    addBook,
-    updateBookByIsbn
-  } = require("../controller/admin.controller");
-  
-  const { getAllUsers } = require("../controller/user.controller");
-  
+  signupAdmin,
+  adminLogin,
+  getAllBooks,
+  getBookByIsbn,
+  getAllAdmins,
+  addBook,
+  updateBookByIsbn
+} = require("../controller/admin.controller");
+
 const router = express.Router();
 
-// Admin Signup Route
 router.post("/signup", signupAdmin);
-
-// Admin Login Route
 router.post("/login", adminLogin);
-router.get("/getAllBook",getAllBooks);
-router.delete("/getBookByIsbn/:isbn",getBookByIsbn);
-router.put("/updateBook/:bookId",updateBookByIsbn);
-router.get("/getAllUser", getAllUsers);
-router.get("/getAllAdmins",getAllAdmins);
-router.post("/add-book",addBook);
+router.get("/books", getAllBooks);
+router.get("/books/:isbn", getBookByIsbn);
+router.put("/books/:isbn", updateBookByIsbn);
+router.get("/admins", getAllAdmins);
+router.post("/books", addBook);
 
 module.exports = router;
